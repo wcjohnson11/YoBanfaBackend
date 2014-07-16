@@ -12,8 +12,12 @@ app.use(bodyParser());
 var port     = process.env.PORT || 8080; // set our port
 
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://node:node@novus.modulusmongo.net:27017/Iganiq8o'); // connect to our database
-var Bear     = require('./app/models/bear');
+mongoose.connect('mongodb://localhost/banfa'); // connect to our database
+var Bear     = require('./api/Bears/bearModel.js');
+var Card     = require('./api/Cards/cardModel.js');
+var cardRouter = require('./api/Cards/cardRoutes.js');
+var gameRouter = require('./api/Games/gameRoutes.js');
+var userRouter = require('./api/Users/userRoutes.js');
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -30,16 +34,20 @@ router.use(function(req, res, next) {
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
-	res.json({ message: 'hooray! welcome to our api!' });	
+	res.json({ message: 'hooray! welcome to our api!' });
 });
 
-// on routes that end in /bears
-// ----------------------------------------------------
+
+//Set up our routes
+router.use('/cards', cardRouter);
+router.use('/games', gameRouter);
+router.use('/users', userRouter);
+
 router.route('/bears')
 
 	// create a bear (accessed at POST http://localhost:8080/bears)
 	.post(function(req, res) {
-		
+
 		var bear = new Bear();		// create a new instance of the Bear model
 		bear.name = req.body.name;  // set the bears name (comes from the request)
 
@@ -50,7 +58,7 @@ router.route('/bears')
 			res.json({ message: 'Bear created!' });
 		});
 
-		
+
 	})
 
 	// get all the bears (accessed at GET http://localhost:8080/api/bears)
@@ -105,6 +113,7 @@ router.route('/bears/:bear_id')
 			res.json({ message: 'Successfully deleted' });
 		});
 	});
+
 
 
 // REGISTER OUR ROUTES -------------------------------
