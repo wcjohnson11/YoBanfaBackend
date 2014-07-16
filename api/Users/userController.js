@@ -1,10 +1,9 @@
-var User = require('./userModel.js'),
-    Q    = require('q'),
-    jwt  = require('jwt-simple');
+    var Q    = require('q');
+    var jwt  = require('jwt-simple');
+    var User = require('./userModel');
 
-module.exports = {
   //search database for user
-  signin: function (req, res, next) {
+  exports.signin = function (req, res, next) {
     var username = req.body.username;
 
     var findUser = Q.nbind(User.findOne, User);
@@ -19,21 +18,21 @@ module.exports = {
       .fail(function (error) {
         next(error);
       });
-  },
+  };
+
   //add user to database
-  signup: function (req, res, next) {
-  },
+  exports.signup = function (req, res, next) {
+  };
 
   //check whether user is authorized
-  checkAuth: function (req, res, next) {
-  },
+  exports.checkAuth = function (req, res, next) {
+  };
 
   //get list of all user's friends
-  getFriends: function(req, res) {
+  exports.getFriends = function(req, res) {
     User.findOne({username: req.params.username}, function (err, user) {
       if(err) { return handleError(res, err); }
       if(!user) { return res.send(404); }
         res.json(user.friends);
     });
-  }
-};
+  };
