@@ -12,7 +12,10 @@ app.use(bodyParser());
 var port     = process.env.PORT || 8080; // set our port
 
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://localhost/banfa'); // connect to our database
+var connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI || "mongodb://localhost/api";
+mongoose.connect(connectionString);
+
+// mongoose.connect('mongodb://MongoLab-n:veHyLFYisbvi1KKOCFH_VVoqvjyzQdvfsvJDIb71qiw-@ds050077.mongolab.com:50077/MongoLab-n'); // connect to our database
 var Bear     = require('./api/Bears/bearModel.js');
 var Card     = require('./api/Cards/cardModel.js');
 var cardRouter = require('./api/Cards/cardRoutes.js');
