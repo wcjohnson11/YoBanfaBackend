@@ -1,32 +1,32 @@
 // Require in the schemae
-var User = require('../api/Users/userModel');
+// var User = require('../api/Users/userModel');
 var Card = require('../api/Cards/cardModel');
 var Game = require('../api/Games/gameModel');
 
 // Populate users
-User.find({}).remove(function() {
-  User.create({
-  provider: 'local',
-    username: 'banfa',
-    name: 'Freddy Mercury',
-    email: 'banfa@test.com',
-    password: 'test'
-  },
-  {
-  provider: 'local',
-      username: 'JD',
-      name: 'John Doe',
-      email: 'JD@test.com',
-      password: 'test',
-      friends: ['happy', 'sleepy', 'dopey']
-  },
-  {
+// User.find({}).remove(function() {
+//   User.create({
+//   provider: 'local',
+//     username: 'banfa',
+//     name: 'Freddy Mercury',
+//     email: 'banfa@test.com',
+//     password: 'test'
+//   },
+//   {
+//   provider: 'local',
+//       username: 'JD',
+//       name: 'John Doe',
+//       email: 'JD@test.com',
+//       password: 'test',
+//       friends: ['happy', 'sleepy', 'dopey']
+//   },
+//   {
 
-  }, function() {
-      console.log('finished populating users');
-    }
-  );
-});
+//   }, function() {
+//       console.log('finished populating users');
+//     }
+//   );
+// });
 
 //Populate cards
 Card.find({}).remove(function() {

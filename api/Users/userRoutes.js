@@ -1,15 +1,10 @@
-var express = require('express');
-var controller = require('./userController');
+var userController = require('./userController.js');
 
-var router = express.Router();
 
-router.get('/:username/friendslist', controller.getFriends);
+module.exports = function (app) {
+  // app === userRouter injected from middlware.js
 
-// router.get('/', controller.index);
-// router.get('/:id', controller.show);
-// router.post('/', controller.create);
-// router.put('/:id', controller.update);
-// router.patch('/:id', controller.update);
-// router.delete('/:id', controller.destroy);
-
-module.exports = router;
+  //app.post('/signin', userController.signin);
+  app.get('/:username/friendslist', userController.getFriends);
+  //app.get('/settings', userController.settings);
+};

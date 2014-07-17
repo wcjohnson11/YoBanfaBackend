@@ -1,57 +1,30 @@
-var _ = require('lodash');
-var Card = require('./cardModel');
+var Game = require('../Games/gameModel.js'),
+    User = require('../Users/userModel.js');
 
-// Get list of cards
-exports.index = function(req, res) {
-  Card.find(function (err, cards) {
-    if(err) { return handleError(res, err); }
-    return res.json(200, cards);
-  });
-};
-
-// Get a single card
-exports.show = function(req, res) {
-  Card.findById(req.params.id, function (err, card) {
-    if(err) { return handleError(res, err); }
-    if(!card) { return res.send(404); }
-    return res.json(card);
-  });
-};
-
-// Creates a new card in the DB.
-exports.create = function(req, res) {
-  Card.create(req.body, function(err, card) {
-    if(err) { return handleError(res, err); }
-    return res.json(201, card);
-  });
-};
-
-// Updates an existing card in the DB.
-exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
-  Card.findById(req.params.id, function (err, card) {
-    if (err) { return handleError(err); }
-    if(!card) { return res.send(404); }
-    var updated = _.merge(card, req.body);
-    updated.save(function (err) {
-      if (err) { return handleError(err); }
-      return res.json(200, card);
+module.exports = {
+  //add Game to database
+  create: function (req, res) {
+    var newGame = {
+      creator: "53c5b12f1c89a4e0191609a7",
+      challenged: "53c5b12f1c89a4e0191609a7",
+      deck: [],
+    };
+    Game.create(newGame, function(err, game){
+      if (err){ return handleError(res, err); }
+      return res.json(201, game);
     });
-  });
-};
+  },
 
-// Deletes a card from the DB.
-exports.destroy = function(req, res) {
-  Card.findById(req.params.id, function (err, card) {
-    if(err) { return handleError(res, err); }
-    if(!card) { return res.send(404); }
-    card.remove(function(err) {
-      if(err) { return handleError(res, err); }
-      return res.send(204);
-    });
-  });
-};
+  //get game from database
+  show: function (req, res) {
+  },
 
-function handleError(res, err) {
-  return res.send(500, err);
-}
+  //update when the first user completes the game
+  update: function (req, res){
+  },
+
+  //destroy when both users complete the game
+  destroy: function(req, res){
+
+  }
+};

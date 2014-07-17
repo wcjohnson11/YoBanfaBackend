@@ -1,11 +1,11 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
+    Game = require('../games/gameModel'),
     //bcrypt   = require('bcrypt'),
     Q        = require('q'),
     SALT_WORK_FACTOR  = 10;
 
 
-var UserSchema = new Schema({
+var UserSchema = new mongoose.Schema({
   username: {
     type: String,
     trim: true,
@@ -29,10 +29,11 @@ var UserSchema = new Schema({
   },
 
   //currentGames should connect to Game schema
-  currentGames: {
-    type: Array,
-    default: []
-  }
+  // currentGames: [{ type: Schema.Types.ObjectId, ref: 'Game'}]
+
+  //future customization
+  //preferredHanzi: String
+
 });
 
 UserSchema.methods.authorize = function (candidatePassword) {

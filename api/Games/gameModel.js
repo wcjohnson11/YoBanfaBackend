@@ -1,32 +1,33 @@
-var mongoose = require('mongoose');
-var User = require('../users/userModel.js');
-var Schema = mongoose.Schema;
+var mongoose = require('mongoose'),
+    User = require('../users/userModel.js'),
+    Schema = mongoose.Schema;
 
 var GameSchema = new Schema({
   creator: {
-  type: Schema.ObjectId,
-  ref: 'User'
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   },
 
   challenged: {
-  type: Schema.ObjectId,
-  ref: 'User'
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   },
 
   deck: {
-  type: Array,
-  default: []
+    type: Array,
+    default: []
   },
 
   creatorScore: {
-  type: Number,
-  default: 0
+    type: Number,
+    default: -1
   },
 
   challengedScore: {
-  type: Number,
-  default: 0
+    type: Number,
+    default: -1
   }
 });
 
-module.exports = mongoose.model('Game', GameSchema);
+
+// module.exports = mongoose.model('Game', GameSchema);
